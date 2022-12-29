@@ -38,7 +38,7 @@ client.on('ready', async () => {
             }
         ]
     }];
-    const command = client.applications.commands.set(data);
+    const command = client.application.commands.set(data);
 });
 
 client.on('guildCreate', guild => {
