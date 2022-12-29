@@ -1,4 +1,5 @@
-const { Discord, PermissionsBitField } = require('discord.js');
+const Discord = require('discord.js');
+const { PermissionsBitField } = require('discord.js');
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 var mysql = require('mysql2');
 var connection = mysql.createConnection({
