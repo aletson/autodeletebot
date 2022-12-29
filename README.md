@@ -14,7 +14,7 @@ because i was bored mostly. also because i wanted to see if i could do this in f
 
 ## hey what data do you store
 
-literally just channel ids and the delete settings you give me. i guess technically i store unix timestamps of messages in an ephemeral log file on the server? but they're literally just unix timestamps and it's left over from debugging. there's no like...message data or ids or anything stored in any way.
+literally just channel ids and the delete settings you give me. ~~i guess technically i store unix timestamps of messages in an ephemeral log file on the server? but they're literally just unix timestamps and it's left over from debugging.~~ i stopped doing this. anyway i don't store message data at all ever
 
 ## i want to support you
 
