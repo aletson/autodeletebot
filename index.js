@@ -42,7 +42,7 @@ client.on('ready', async () => {
     }
 });
 
-client.on('guildCreate', guild => {
+client.on('guildCreate', async (guild) => {
     var data = [{
         "name": "autodelete",
         "description": "Set autodelete for a channel",
@@ -87,7 +87,7 @@ client.on('interactionCreate', async (interaction) => {
 
 setInterval(async function () {
     var channels = await connection.promise().query('select * from channels');
-    if (servers[0].length > 0) {
+    if (channels[0].length > 0) {
         for (const channel of channels[0]) {
             if (channel.enabled == true) {
                 let message = await channel.messages.fetch({ limit: 1 }).then(messages => messages.size === 1 ? messages.at(0) : null);
