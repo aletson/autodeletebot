@@ -81,8 +81,13 @@ client.on('interactionCreate', async (interaction) => {
                 var minutes = interaction.options.getInteger('minutes');
                 var isChannel = await connection.promise().query('select * from channels where id = ?', channel.id);
                 if (isChannel[0].length > 0) {
-                    var queryData = [enabled, minutes, channel.id];
-                    await connection.promise().query('update channels set enabled = ?, minutes = ? where id = ?', queryData);
+                    if (enabled == true) {
+                        var queryData = [enabled, minutes, channel.id];
+                        await connection.promise().query('update channels set enabled = ?, minutes = ? where id = ?', queryData);
+                    } else {
+                        var queryData = [enabled, channel.id];
+                        await connection.promise().query('update channels set enabled = ? where id = ?', queryData);
+                    }
                 } else {
                     await connection.promise().query('insert into channels (id, enabled, minutes) values (' + channel.id + ',' + enabled + ',' + minutes + ')');
                 }
