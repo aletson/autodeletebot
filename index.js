@@ -96,13 +96,11 @@ setInterval(async function () {
             if (channel.enabled == true) {
                 let channelObj = await client.channels.cache.get(channel.id);
                 let message = await channelObj.messages.fetch({ limit: 1 });
-                console.log(message);
                 while (message) {
                     let messages = await channelObj.messages.fetch({ limit: 100, before: message.id });// .then(messages => messages.forEach(msg => messages.push(msg)));
                     if (messages.size > 0) {
                         message = messages.at(message.size - 1)
                         for (thisMessage of messages) {
-                            console.log(thisMessage[1]);
                             console.log('compare: ' + thisMessage[1].createdTimestamp + ' - ' + (Date.now() - (channel.minutes * 60 * 1000)));
                             if (thisMessage[1].createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000))) { // milliseconds elapsed
                                 await channelObj.messages.delete(thisMessage[1].id);
@@ -115,4 +113,4 @@ setInterval(async function () {
             }
         }
     }
-}, 120000);
+}, 600000);
