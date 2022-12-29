@@ -94,7 +94,7 @@ setInterval(async function () {
     if (channels[0].length > 0) {
         for (const channel of channels[0]) {
             if (channel.enabled == true) {
-                let channelObj = await client.channel.cache.get(channel.id);
+                let channelObj = await client.channels.cache.get(channel.id);
                 channelObj.messages.fetch({ limit: 1 }).then(messages => messages.size === 1 ? messages.at(0) : null);
                 while (message) {
                     await channelObj.messages.fetch({ limit: 100, before: message.id }).then(messages => messages.forEach(msg => messages.push(msg)));
