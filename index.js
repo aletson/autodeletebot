@@ -102,10 +102,10 @@ setInterval(async function () {
                     if (messages.size > 0) {
                         message = messages.at(message.size - 1)
                         for (thisMessage of messages) {
-                            console.log(thisMessage);
-                            console.log('compare: ' + thisMessage.createdTimestamp + ' - ' + (Date.now() - (channel.minutes * 60 * 1000)));
-                            if (thisMessage.createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000))) { // milliseconds elapsed
-                                channelObj.messages.delete(thisMessage.id);
+                            console.log(thisMessage[1]);
+                            console.log('compare: ' + thisMessage[1].createdTimestamp + ' - ' + (Date.now() - (channel.minutes * 60 * 1000)));
+                            if (thisMessage[1].createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000))) { // milliseconds elapsed
+                                channelObj.messages.delete(thisMessage[1].id);
                             }
                         }
                     } else {
