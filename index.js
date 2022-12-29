@@ -21,11 +21,6 @@ client.on('ready', async () => {
             "description": "Set autodelete for a channel",
             "options": [
                 {
-                    "type": 4,
-                    "name": "minutes",
-                    "description": "How many minutes should pass before message removed",
-                },
-                {
                     "type": 7,
                     "name": "channel",
                     "description": "The channel in question",
@@ -37,6 +32,11 @@ client.on('ready', async () => {
                     "name": "enabled",
                     "description": "enable autodelete or not",
                     "required": true
+                },
+                {
+                    "type": 4,
+                    "name": "minutes",
+                    "description": "How many minutes should pass before message removed",
                 }
             ]
         }];
@@ -50,11 +50,6 @@ client.on('guildCreate', async (guild) => {
         "description": "Set autodelete for a channel",
         "options": [
             {
-                "type": 4,
-                "name": "minutes",
-                "description": "How many minutes should pass before message removed",
-            },
-            {
                 "type": 7,
                 "name": "channel",
                 "description": "The channel in question",
@@ -66,6 +61,11 @@ client.on('guildCreate', async (guild) => {
                 "name": "enabled",
                 "description": "enable autodelete or not",
                 "required": true
+            },
+            {
+                "type": 4,
+                "name": "minutes",
+                "description": "How many minutes should pass before message removed",
             }
         ]
     }];
