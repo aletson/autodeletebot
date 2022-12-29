@@ -14,8 +14,7 @@ var connection = mysql.createConnection({
 connection.connect();
 client.login(process.env.app_token);
 
-client.on('ready', async () => {
-    console.log('autodelete');
+client.on('ready', () => {
     var data = [{
         "name": "autodelete",
         "description": "Set autodelete for a channel",
@@ -38,7 +37,7 @@ client.on('ready', async () => {
             }
         ]
     }];
-    const command = await client.application.commands.set(data);
+    await client.application.commands.set(data);
 });
 
 client.on('guildCreate', guild => {
@@ -64,7 +63,7 @@ client.on('guildCreate', guild => {
             }
         ]
     }];
-    const command = guild.commands.set(data);
+    await guild.commands.set(data);
 });
 
 client.on('interactionCreate', async (interaction) => {
