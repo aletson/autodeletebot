@@ -79,12 +79,12 @@ client.on('interactionCreate', async (interaction) => {
                 var channel = interaction.options.getChannel('channel');
                 var enabled = interaction.options.getBoolean('enabled');
                 var minutes = interaction.options.getInteger('minutes');
-                var isChannel = await connection.promise().query('select * from channels where id = ?', channel);
+                var isChannel = await connection.promise().query('select * from channels where id = ?', channel.id);
                 if (isChannel[0].length > 0) {
-                    var queryData = [enabled, minutes, id];
+                    var queryData = [enabled, minutes, channel.id];
                     await connection.promise().query('update channels set enabled = ?, minutes = ? where id = ?', queryData);
                 } else {
-                    await connection.promise().query('insert into channels (id, enabled, minutes) values (' + channel + ',' + enabled + ',' + minutes + ')');
+                    await connection.promise().query('insert into channels (id, enabled, minutes) values (' + channel.id + ',' + enabled + ',' + minutes + ')');
                 }
                 await interaction.reply({ content: 'This probably processed okay!', ephemeral: true });
             }
