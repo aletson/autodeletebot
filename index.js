@@ -99,11 +99,10 @@ setInterval(async function () {
                 console.log(message);
                 while (message) {
                     let messages = await channelObj.messages.fetch({ limit: 100, before: message.id });// .then(messages => messages.forEach(msg => messages.push(msg)));
-                    console.log(messages);
                     if (messages.size > 0) {
-                        console.log(messages);
                         message = messages.at(message.size - 1)
                         for (thisMessage of messages) {
+                            console.log('compare: ' + thisMessage.timestamp + ' - ' + Date.now() - (channel.minutes * 60 * 1000));
                             if (thisMessage.timestamp < (Date.now() - (channel.minutes * 60 * 1000))) { // milliseconds elapsed
                                 channelObj.messages.delete(thisMessage.id);
                             }
