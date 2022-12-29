@@ -16,9 +16,6 @@ client.login(process.env.app_token);
 
 client.on('ready', async () => {
     console.log('autodelete');
-});
-
-client.on('guildCreate', guild => {
     var data = [{
         "name": "autodelete",
         "description": "Set autodelete for a channel",
@@ -41,7 +38,11 @@ client.on('guildCreate', guild => {
             }
         ]
     }];
-    const command = guild.commands.set(data);
+    const command = client.applications.commands.set(data);
+});
+
+client.on('guildCreate', guild => {
+
 });
 
 client.on('interactionCreate', async (interaction) => {
