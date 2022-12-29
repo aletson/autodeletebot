@@ -43,7 +43,29 @@ client.on('ready', async () => {
 });
 
 client.on('guildCreate', guild => {
-    //await guild.commands.set(data);
+    var data = [{
+        "name": "autodelete",
+        "description": "Set autodelete for a channel",
+        "options": [
+            {
+                "type": 4,
+                "name": "minutes",
+                "description": "How many minutes should pass before message removed"
+            },
+            {
+                "type": 7,
+                "name": "channel",
+                "choices": [],
+                "required": true
+            },
+            {
+                "type": 5,
+                "name": "enabled",
+                "required": true
+            }
+        ]
+    }];
+    await guild?.commands.set(data);
 });
 
 client.on('interactionCreate', async (interaction) => {
