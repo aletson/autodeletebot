@@ -96,10 +96,9 @@ client.on('interactionCreate', async (interaction) => {
 
 
 setInterval(async function () {
-    var channels = await connection.promise().query('select * from channels');
+    var channels = await connection.promise().query('select * from channels where enabled = 1');
     if (channels[0].length > 0) {
         for (const channel of channels[0]) {
-            if (channel.enabled == true) {
                 let channelObj = await client.channels.cache.get(channel.id);
                 let message = await channelObj.messages.fetch({ limit: 1 });
                 while (message) {
@@ -116,7 +115,6 @@ setInterval(async function () {
                         message = null;
                     }
                 }
-            }
         }
     }
 }, 600000);
