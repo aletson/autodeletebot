@@ -102,7 +102,7 @@ setInterval(async function () {
                         message = messages.at(message.size - 1)
                         for (thisMessage of messages) {
                             console.log('compare: ' + thisMessage[1].createdTimestamp + ' - ' + (Date.now() - (channel.minutes * 60 * 1000)));
-                            if (thisMessage[1].createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000))) { // milliseconds elapsed
+                            if (thisMessage[1].createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000)) && thisMessage[1].pinned == false) { // milliseconds elapsed
                                 await channelObj.messages.delete(thisMessage[1].id);
                             }
                         }
