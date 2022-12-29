@@ -38,11 +38,33 @@ client.on('ready', async () => {
             }
         ]
     }];
-    const command = client.application.commands.set(data);
+    const command = await client.application.commands.set(data);
 });
 
 client.on('guildCreate', guild => {
-
+    var data = [{
+        "name": "autodelete",
+        "description": "Set autodelete for a channel",
+        "options": [
+            {
+                "type": 4,
+                "name": "minutes",
+                "description": "How many minutes should pass before message removed"
+            },
+            {
+                "type": 7,
+                "name": "channel",
+                "choices": [],
+                "required": true
+            },
+            {
+                "type": 5,
+                "name": "enabled",
+                "required": true
+            }
+        ]
+    }];
+    const command = guild.commands.set(data);
 });
 
 client.on('interactionCreate', async (interaction) => {
