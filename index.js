@@ -40,7 +40,7 @@ client.on('guildCreate', guild => {
             }
         ]
     };
-    const command = await guild.commands.set(data);
+    const command = guild.commands.set(data);
 });
 
 client.on('interactionCreate', async (interaction) => {
