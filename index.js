@@ -102,7 +102,7 @@ setInterval(async function () {
                 let channelObj = await client.channels.cache.get(channel.id);
                 let message = await channelObj.messages.fetch({ limit: 1 });
                 while (message) {
-                    let messages = await channelObj.messages.fetch({ limit: 100, before: message.id });// .then(messages => messages.forEach(msg => messages.push(msg)));
+                    let messages = await channelObj.messages.fetch({ limit: 100, before: message.id });
                     if (messages.size > 0) {
                         message = messages.at(message.size - 1)
                         for (thisMessage of messages) {
