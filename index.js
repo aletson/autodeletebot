@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 connection.connect();
 client.login(process.env.app_token);
 
-client.on('ready', () => {
+client.on('ready', async () => {
     if (!client.application?.commands.cache) {
         var data = [{
             "name": "autodelete",
