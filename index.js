@@ -19,7 +19,7 @@ client.on('ready', async () => {
 });
 
 client.on('guildCreate', guild => {
-    var data = {
+    var data = [{
         "name": "autodelete",
         "description": "Set autodelete for a channel",
         "options": [
@@ -40,7 +40,7 @@ client.on('guildCreate', guild => {
                 "required": true
             }
         ]
-    };
+    }];
     const command = guild.commands.set(data);
 });
 
@@ -51,7 +51,7 @@ client.on('interactionCreate', async (interaction) => {
                 var channel = interaction.options.getChannel('channel');
                 var enabled = interaction.options.getBoolean('enabled');
                 var minutes = interaction.options.getInteger('minutes');
-                await connection.promise.query('insert into channels (id, enabled, minutes) values (' + channel + ',' + enabled + ',' + minutes + ')');
+                await connection.promise().query('insert into channels (id, enabled, minutes) values (' + channel + ',' + enabled + ',' + minutes + ')');
                 await interaction.reply({ content: 'This probably processed okay!', ephemeral: true });
             }
         }
@@ -62,7 +62,7 @@ client.on('interactionCreate', async (interaction) => {
 
 
 setInterval(async function () {
-    var channels = await connection.promise.query('select * from channels');
+    var channels = await connection.promise().query('select * from channels');
     if (servers[0].length > 0) {
         for (const channel of channels[0]) {
             if (channel.enabled == true) {
