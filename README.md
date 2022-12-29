@@ -1,6 +1,6 @@
 # autodelete
 
-does what it says it does
+does what it says it does. ignores pinned messages in-channel.
 
 venmo me @a_letson if you like it and want to support its operation
 
