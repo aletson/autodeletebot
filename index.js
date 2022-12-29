@@ -105,7 +105,7 @@ setInterval(async function () {
                             console.log(thisMessage[1]);
                             console.log('compare: ' + thisMessage[1].createdTimestamp + ' - ' + (Date.now() - (channel.minutes * 60 * 1000)));
                             if (thisMessage[1].createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000))) { // milliseconds elapsed
-                                channelObj.messages.delete(thisMessage[1].id);
+                                await channelObj.messages.delete(thisMessage[1].id);
                             }
                         }
                     } else {
