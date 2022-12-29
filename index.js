@@ -15,55 +15,35 @@ connection.connect();
 client.login(process.env.app_token);
 
 client.on('ready', () => {
-    var data = [{
-        "name": "autodelete",
-        "description": "Set autodelete for a channel",
-        "options": [
-            {
-                "type": 4,
-                "name": "minutes",
-                "description": "How many minutes should pass before message removed"
-            },
-            {
-                "type": 7,
-                "name": "channel",
-                "choices": [],
-                "required": true
-            },
-            {
-                "type": 5,
-                "name": "enabled",
-                "required": true
-            }
-        ]
-    }];
-    await client.application.commands.set(data);
+    if (!client.application?.commands.cache) {
+        var data = [{
+            "name": "autodelete",
+            "description": "Set autodelete for a channel",
+            "options": [
+                {
+                    "type": 4,
+                    "name": "minutes",
+                    "description": "How many minutes should pass before message removed"
+                },
+                {
+                    "type": 7,
+                    "name": "channel",
+                    "choices": [],
+                    "required": true
+                },
+                {
+                    "type": 5,
+                    "name": "enabled",
+                    "required": true
+                }
+            ]
+        }];
+        await client.application.commands.set(data);
+    }
 });
 
 client.on('guildCreate', guild => {
-    var data = [{
-        "name": "autodelete",
-        "description": "Set autodelete for a channel",
-        "options": [
-            {
-                "type": 4,
-                "name": "minutes",
-                "description": "How many minutes should pass before message removed"
-            },
-            {
-                "type": 7,
-                "name": "channel",
-                "choices": [],
-                "required": true
-            },
-            {
-                "type": 5,
-                "name": "enabled",
-                "required": true
-            }
-        ]
-    }];
-    await guild.commands.set(data);
+    //await guild.commands.set(data);
 });
 
 client.on('interactionCreate', async (interaction) => {
