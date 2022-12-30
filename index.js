@@ -72,6 +72,8 @@ client.on('guildCreate', async (guild) => {
     await guild?.commands.set(data);
 });
 
+client.on('rateLimit', (...args) => console.log('rateLimit', ...args));
+
 client.on('interactionCreate', async (interaction) => {
     if (interaction.isCommand()) {
         if (interaction.commandName === 'autodelete') {
