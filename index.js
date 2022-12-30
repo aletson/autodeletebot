@@ -100,20 +100,28 @@ client.on('interactionCreate', async (interaction) => {
 });
 
 
+function messageDelete(message, channel, channelObj) {
+    if (message[1].createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000)) && message[1].pinned == false) { // milliseconds elapsed
+        channelObj.messages.delete(message[1].id);
+    }
+}
 setInterval(async function () {
     var channels = await connection.promise().query('select * from channels where enabled = 1');
     if (channels[0].length > 0) {
         for (const channel of channels[0]) {
                 let channelObj = await client.channels.cache.get(channel.id);
                 let message = await channelObj.messages.fetch({ limit: 1 });
-                while (message) {
+                if (message) {
                     let messages = await channelObj.messages.fetch({ limit: 100, before: message.id });
+                }
+                while (message) {
                     if (messages.size > 0) {
-                        message = messages.at(message.size - 1)
-                        for (thisMessage of messages) {
-                            if (thisMessage[1].createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000)) && thisMessage[1].pinned == false) { // milliseconds elapsed
-                                await channelObj.messages.delete(thisMessage[1].id);
-                            }
+                        message = messages.at(message.size - 1);
+                        let thisDeleteBatch = messages.map(message => messageDelete(message, channel, channelObj));
+                        let results = await Promise.all(thisDeleteBatch);
+                        let messages = await channelObj.messages.fetch({ limit: 100, before: message.id });
+                        if( messages.size > 0) {
+                            message = null;
                         }
                     } else {
                         message = null;
