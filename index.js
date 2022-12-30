@@ -130,4 +130,4 @@ setInterval(async function () {
                 }
         }
     }
-}, 600000);
+}, 60000);
