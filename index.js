@@ -216,8 +216,9 @@ client.on('messageReactionAdd', async function(reaction, user) {
     //todo cache reactions
     console.log(reaction.emoji.id);
     var hofData = await connection.promise().query('select * from hof where guild_id = ?', reaction.message.guildId);
+    console.log(hofData);
     var member = await reaction.message.guild.members.cache.get(user.id);
-    if(hofData[0].length > 0 && reaction.emoji.id == hofData[0].emoji_id && (reaction.count >= hofData[0].threshold || (hofData[0].admin_override == true && member.permissions.has(PermissionsBitField.Flags.Administrator)))) {
+    if(hofData[0].length > 0 && reaction.emoji.id == hofData[0][0].emoji_id && (reaction.count >= hofData[0][0].threshold || (hofData[0][0].admin_override == true && member.permissions.has(PermissionsBitField.Flags.Administrator)))) {
         console.log('checks passed');
         var is_hof = await connection.promise.query('select * from hof_msg where message_id = ?', reaction.message.id); 
         if (is_hof[0].length <= 0) {
@@ -241,13 +242,13 @@ client.on('messageReactionAdd', async function(reaction, user) {
         if(hofData[0].length == 0) {
             console.log('no hof set');
         }
-        if(reaction.emoji.id != hofData[0].emoji_id) {
-            console.log('wrong emoji - ' + reaction.emoji.id + ' != ' + hofData[0].emoji_id);
+        if(reaction.emoji.id != hofData[0][0].emoji_id) {
+            console.log('wrong emoji - ' + reaction.emoji.id + ' != ' + hofData[0][0].emoji_id);
         }
         if (reaction.count < hofData[0].threshold) {
             console.log('threshold not met');
         }
-        if (hofData[0].admin_override == true) {
+        if (hofData[0][0].admin_override == true) {
             console.log('admin override on');
             if(member.permissions.has(PermissionsBitField.Flags.Administrator)) {
                 console.log('they\'re an admin!');
