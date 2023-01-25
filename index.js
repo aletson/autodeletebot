@@ -210,7 +210,9 @@ setInterval(async function () {
 }, 600000);
 
 client.on('messageReactionAdd', async function(reaction, user) {
+    console.log(reaction);
     //todo cache reactions
+    console.log(reaction.guild.id);
     var hofData = await connection.promise().query('select * from hof where guild_id = ?', reaction.guild.id);
     if(hofData[0].length > 0 && reaction.id === hofData[0].emoji_id && (reaction.count >= hofData[0].threshold || (hofData[0].admin_override == true && user.permissions.has(PermissionsBitField.Flags.Administrator)))) {
         //check message id if already hofed (store)
