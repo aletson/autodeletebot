@@ -55,6 +55,18 @@ client.on('ready', async () => {
                 "name": "channel",
                 "description": "The channel to set as the Hall of Fame",
                 "required": true
+              }, 
+              {
+                "type": 10,
+                "name": "threshold",
+                "description": "How many people must react",
+                "required": true
+              },
+              {
+                "type": 5,
+                "name": "admin_override",
+                "description": "If a react from an admin automatically HOF's regardless of threshold",
+                "required": true
               }
             ]
           }];
