@@ -220,7 +220,7 @@ client.on('messageReactionAdd', async function(reaction, user) {
     var member = await reaction.message.guild.members.cache.get(user.id);
     if(hofData[0].length > 0 && reaction.emoji.id == hofData[0][0].emoji_id && (reaction.count >= hofData[0][0].threshold || (hofData[0][0].admin_override == true && member.permissions.has(PermissionsBitField.Flags.Administrator)))) {
         console.log('checks passed');
-        var is_hof = await connection.promise.query('select * from hof_msg where message_id = ?', reaction.message.id); 
+        var is_hof = await connection.promise().query('select * from hof_msg where message_id = ?', reaction.message.id); 
         if (is_hof[0].length <= 0) {
             console.log('isnt in hof');
             //create pin (message embed / rich formatting)
