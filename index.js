@@ -164,9 +164,9 @@ client.on('interactionCreate', async (interaction) => {
                 var isHof = await connection.promise().query('select * from hof where guild_id = ?', interaction.guild.id);
                 var queryData = [channel.id, emoji_id, threshold, admin_override, interaction.guild.id];
                 if(isHof[0].length > 0) {
-                    await connection.promise.query('update hof set channel = ?, emoji = ?, threshold = ?, admin_override = ? where guild_id = ?');
+                    await connection.promise().query('update hof set channel = ?, emoji = ?, threshold = ?, admin_override = ? where guild_id = ?');
                 } else {
-                    await connection.promise.query('insert into channels (channel, emoji, threshold, admin_override, guild_id) values (?, ?, ?, ?, ?)');
+                    await connection.promise().query('insert into channels (channel, emoji, threshold, admin_override, guild_id) values (?, ?, ?, ?, ?)');
                 }
                 await interaction.reply({content: 'This probably processed okay!', ephemeral: true});
             }
