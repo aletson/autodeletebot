@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { PermissionsBitField, GatewayIntentBits, EmbedBuilder } = require('discord.js');
-const client = new Discord.Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions] });
+const client = new Discord.Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions], partials: [Partials.Message, Partials.Channel, Partials.Reaction], });
 var mysql = require('mysql2');
 var connection = mysql.createConnection({
     host: process.env.db_host,
