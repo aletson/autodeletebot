@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { PermissionsBitField, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { PermissionsBitField, GatewayIntentBits, EmbedBuilder, Partials } = require('discord.js');
 const client = new Discord.Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions], partials: [Partials.Message, Partials.Channel, Partials.Reaction], });
 var mysql = require('mysql2');
 var connection = mysql.createConnection({
@@ -222,7 +222,7 @@ client.on('messageReactionAdd', async function(reaction, user) {
         var is_hof = await connection.promise.query('select * from hof_msg where message_id = ?', reaction.message.id); 
         if (is_hof[0].length <= 0) {
             //create pin (message embed / rich formatting)
-            const embeddedMessage = newEmbedBuilder()
+            const embeddedMessage = new EmbedBuilder()
             .setColor(0xFFD700)
             .setAuthor({name: reaction.message.member.displayName})
             .setDescription(reaction.message.content);
