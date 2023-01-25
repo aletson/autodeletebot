@@ -232,7 +232,7 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (reaction.message.attachments.first()) {
                 embeddedMessage.setImage(reaction.message.attachments.first().url);
             }
-            embeddedMessage.setFields({ name: 'Source', value: reaction.message.url })
+            embeddedMessage.setFields({ name: 'Source', value: '[click!](' + reaction.message.url + ')' })
                 .setTimestamp();
             var channel = await client.channels.cache.get(hofData[0][0].channel);
             await channel.send({ embeds: [embeddedMessage], content: reaction.message.channel.toString() });
