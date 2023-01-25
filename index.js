@@ -229,7 +229,7 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (reaction.message.content.length > 0) {
                 embeddedMessage.setDescription(reaction.message.content);
             }
-            console.log(reaction.message);
+            console.log(reaction.message.attachments);
             if (reaction.message.attachments[0]) {
                 embeddedMessage.setImage(reaction.message.attachments[0].url);
             }
