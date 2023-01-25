@@ -45,7 +45,7 @@ client.on('ready', async () => {
             "description": "set up hall of fame functionality",
             "options": [
               {
-                "type": 10,
+                "type": 3,
                 "name": "emoji_id",
                 "description": "Right click on the emoji you want and click \"Copy ID\".",
                 "required": true
@@ -104,7 +104,7 @@ client.on('guildCreate', async (guild) => {
         "description": "set up hall of fame functionality",
         "options": [
           {
-            "type": 10,
+            "type": 3,
             "name": "emoji_id",
             "description": "Right click on the emoji you want and click \"Copy ID\".",
             "required": true
@@ -158,7 +158,7 @@ client.on('interactionCreate', async (interaction) => {
         } else if (interaction.commandName === 'hof') {
             if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
                 var channel = interaction.options.getChannel('channel');
-                var emoji_id = interaction.options.getInteger('emoji_id');
+                var emoji_id = interaction.options.getString('emoji_id');
                 var threshold = interaction.options.getInteger('threshold');
                 var admin_override = interaction.options.getBoolean('admin_override');
                 var isHof = await connection.promise().query('select * from hof where guild_id = ?', interaction.guild.id);
