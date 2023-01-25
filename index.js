@@ -15,7 +15,7 @@ connection.connect();
 client.login(process.env.app_token);
 
 client.on('ready', async () => {
-    if (!client.application?.commands.cache) {
+    //if (!client.application?.commands.cache) {
         var data = [{
             "name": "autodelete",
             "description": "Set autodelete for a channel",
@@ -59,7 +59,7 @@ client.on('ready', async () => {
             ]
           }];
         await client.application.commands.set(data);
-    }
+    //}
 });
 
 client.on('guildCreate', async (guild) => {
