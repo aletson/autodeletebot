@@ -236,7 +236,7 @@ client.on('messageReactionAdd', async function (reaction, user) {
             embeddedMessage.setFields({ name: 'Source', value: reaction.message.url })
                 .setTimestamp();
             var channel = await client.channels.cache.get(hofData[0][0].channel);
-            await channel.send({ embeds: [embeddedMessage], message: reaction.message.channel.toString() });
+            await channel.send({ embeds: [embeddedMessage], content: reaction.message.channel.toString() });
             await connection.promise().query('insert into hof_msg (message_id) values (?)', reaction.message.id);
         }
 
