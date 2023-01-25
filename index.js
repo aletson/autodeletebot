@@ -227,8 +227,8 @@ client.on('messageReactionAdd', async function(reaction, user) {
             .setColor(0xFFD700)
             .setAuthor({name: reaction.message.member.displayName})
             .setDescription(reaction.message.content);
-            if(reaction.message.embeds[0].thumbnail) {
-                embeddedMessage.setImage(embeds[0].thumbnail);
+            if(reaction.message.embeds[0] && reaction.message.embeds[0].thumbnail) {
+                embeddedMessage.setImage(reaction.message.embeds[0].thumbnail);
             }
             embeddedMessage.setFields({name: 'Source', value: reaction.message.url})
             .setTimestamp();
