@@ -210,6 +210,9 @@ setInterval(async function () {
 }, 600000);
 
 client.on('messageReactionAdd', async function(reaction, user) {
+    if (reaction.partial) {
+        await reaction.fetch();
+    }
     console.log(reaction);
     //todo cache reactions
     console.log(reaction.guild.id);
