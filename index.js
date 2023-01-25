@@ -229,14 +229,14 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (reaction.message.content.length > 0) {
                 embeddedMessage.setDescription(reaction.message.content);
             }
-            if (reaction.message.embeds[0] && reaction.message.embeds[0].thumbnail) {
-                embeddedMessage.setImage(reaction.message.embeds[0].thumbnail);
+            if (reaction.message.embeds[0]) {
+                embeddedMessage.setImage(reaction.message.embeds[0].url);
             }
             embeddedMessage.setFields({ name: 'Source', value: reaction.message.url })
                 .setTimestamp();
             var channel = await client.channels.cache.get(hofData[0][0].channel);
             await channel.send({ embeds: [embeddedMessage], message: reaction.message.channel.toString() });
-            await connection.promise.query('insert into hof_msg (message_id) values (?)', reaction.message.id);
+            await connection.promise().query('insert into hof_msg (message_id) values (?)', reaction.message.id);
         }
 
 
