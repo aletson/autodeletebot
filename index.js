@@ -230,8 +230,8 @@ client.on('messageReactionAdd', async function (reaction, user) {
                 embeddedMessage.setDescription(reaction.message.content);
             }
             console.log(reaction.message);
-            if (reaction.message.embeds[0]) {
-                embeddedMessage.setImage(reaction.message.embeds[0].url);
+            if (reaction.message.attachments[0]) {
+                embeddedMessage.setImage(reaction.message.attachments[0].url);
             }
             embeddedMessage.setFields({ name: 'Source', value: reaction.message.url })
                 .setTimestamp();
