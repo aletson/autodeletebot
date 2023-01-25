@@ -214,14 +214,11 @@ client.on('messageReactionAdd', async function (reaction, user) {
         await reaction.fetch();
     }
     //todo cache reactions
-    console.log(reaction.emoji.id);
     var hofData = await connection.promise().query('select * from hof where guild_id = ?', reaction.message.guildId);
     var member = await reaction.message.guild.members.cache.get(user.id);
     if (hofData[0].length > 0 && reaction.emoji.id == hofData[0][0].emoji_id && (reaction.count >= hofData[0][0].threshold || (hofData[0][0].admin_override == true && member.permissions.has(PermissionsBitField.Flags.Administrator)))) {
-        console.log('checks passed');
         var is_hof = await connection.promise().query('select * from hof_msg where message_id = ?', reaction.message.id);
         if (is_hof[0].length <= 0) {
-            console.log('isnt in hof');
             //create pin (message embed / rich formatting)
             const embeddedMessage = new EmbedBuilder()
                 .setColor(0xFFD700)
@@ -240,21 +237,5 @@ client.on('messageReactionAdd', async function (reaction, user) {
         }
 
 
-    } else {
-        if (hofData[0].length == 0) {
-            console.log('no hof set');
-        }
-        if (reaction.emoji.id != hofData[0][0].emoji_id) {
-            console.log('wrong emoji - ' + reaction.emoji.id + ' != ' + hofData[0][0].emoji_id);
-        }
-        if (reaction.count < hofData[0].threshold) {
-            console.log('threshold not met');
-        }
-        if (hofData[0][0].admin_override == true) {
-            console.log('admin override on');
-            if (member.permissions.has(PermissionsBitField.Flags.Administrator)) {
-                console.log('they\'re an admin!');
-            }
-        }
     }
 });
