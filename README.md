@@ -4,6 +4,8 @@
 
 does what it says it does. in discord, to be clear. ignores pinned messages in-channel.
 
+edit 2023-01-25: LMAO IT DOES MORE NOW UHHHHHH I'LL UPDATE THIS LATER
+
 usage: `/autodelete channel:#general enabled:true|false minutes:60`
 
 you can omit minutes if you're disabling it
@@ -22,6 +24,6 @@ venmo me @a_letson if you like it and want to support its operation
 
 ## can you just give me the robot already omg
 
-https://discord.com/api/oauth2/authorize?client_id=1057726468479783052&permissions=76800&scope=applications.commands%20bot
+https://discord.com/api/oauth2/authorize?client_id=1057726468479783052&permissions=274878295040&scope=applications.commands%20bot
 
 or just host it yourself! `npm install && node index.js`, or i prefer pm2 for autorestart and all that good stuff
