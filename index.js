@@ -215,12 +215,13 @@ client.on('messageReactionAdd', async function(reaction, user) {
     }
     console.log(reaction);
     //todo cache reactions
-    console.log(reaction.message.guildId);
+    console.log(reaction.id);
     var hofData = await connection.promise().query('select * from hof where guild_id = ?', reaction.message.guildId);
     if(hofData[0].length > 0 && reaction.id === hofData[0].emoji_id && (reaction.count >= hofData[0].threshold || (hofData[0].admin_override == true && user.permissions.has(PermissionsBitField.Flags.Administrator)))) {
-        //check message id if already hofed (store)
+        console.log('checks passed');
         var is_hof = await connection.promise.query('select * from hof_msg where message_id = ?', reaction.message.id); 
         if (is_hof[0].length <= 0) {
+            console.log('isnt in hof');
             //create pin (message embed / rich formatting)
             const embeddedMessage = new EmbedBuilder()
             .setColor(0xFFD700)
