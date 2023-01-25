@@ -116,7 +116,7 @@ client.on('guildCreate', async (guild) => {
             "required": true
           }, 
           {
-            "type": 10,
+            "type": 4,
             "name": "threshold",
             "description": "How many people must react",
             "required": true
