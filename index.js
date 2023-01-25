@@ -232,7 +232,7 @@ client.on('messageReactionAdd', async function(reaction, user) {
             }
             embeddedMessage.setFields({name: 'Source', value: reaction.message.url})
             .setTimestamp();
-            await reaction.message.channel.send({embeds: embeddedMessage, message: reaction.message.channel.toString()});
+            await client.channels.cache.get(reaction.message.channel).send({embeds: embeddedMessage, message: reaction.message.channel.toString()});
             await connection.promise.query('insert into hof_msg (message_id) values (?)', reaction.message.id); 
         }
 
