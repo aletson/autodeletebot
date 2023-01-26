@@ -226,7 +226,10 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (reaction.message.content.length > 0) {
                 embeddedMessage.setDescription(reaction.message.content);
             }
-            if (reaction.message.attachments.first()) {
+            if (reaction.message.embeds.first() && reaction.message.embeds.first().image) {
+                embeddedMessage.setImage(reaction.message.attachments.first().image.url);
+            }
+            if (reaction.message.attachments.first() && reaction.message.attachments.first().contentType == 'image') {
                 embeddedMessage.setImage(reaction.message.attachments.first().url);
             }
             embeddedMessage.setFields({ name: 'Source', value: '[click!](' + reaction.message.url + ')' })
