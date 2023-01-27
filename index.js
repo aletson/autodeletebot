@@ -228,7 +228,7 @@ client.on('messageReactionAdd', async function (reaction, user) {
                 embeddedMessage.setDescription(message.content);
             }
             console.log(message);
-            if (message.embeds && message.embeds.first() !== undefined && message.embeds.first().image) {
+            if (message.embeds && message.embeds[0] !== undefined && message.embeds.first().image) {
                 embeddedMessage.setImage(message.attachments.first().image.url);
             }
             if (message.attachments && message.attachments.first() !== undefined && message.attachments.first().contentType == 'image') {
