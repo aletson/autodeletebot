@@ -231,6 +231,7 @@ client.on('messageReactionAdd', async function (reaction, user) {
                 embeddedMessage.setImage(message.attachments.first().image.url);
             }
             if (message.attachments.length > 0 && message.attachments.first().contentType == 'image') {
+                console.log('has attachment');
                 embeddedMessage.setImage(message.attachments.first().url);
             }
             embeddedMessage.setFields({ name: 'Source', value: '[click!](' + message.url + ')' })
