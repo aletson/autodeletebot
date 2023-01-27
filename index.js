@@ -230,7 +230,7 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (message.embeds.length > 0 && message.embeds.first().image) {
                 embeddedMessage.setImage(message.attachments.first().image.url);
             }
-            if (message.attachments && message.attachments.first().contentType == 'image') {
+            if (message.attachments.length > 0 && message.attachments.first().contentType == 'image') {
                 embeddedMessage.setImage(message.attachments.first().url);
             }
             embeddedMessage.setFields({ name: 'Source', value: '[click!](' + message.url + ')' })
