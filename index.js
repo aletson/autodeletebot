@@ -214,29 +214,30 @@ client.on('messageReactionAdd', async function (reaction, user) {
         await reaction.fetch();
     }
     //todo cache reactions
-    var hofData = await connection.promise().query('select * from hof where guild_id = ?', reaction.message.guildId);
-    var member = await reaction.message.guild.members.cache.get(user.id);
+    var message = await reaction.message.fetch();
+    var hofData = await connection.promise().query('select * from hof where guild_id = ?', message.guildId);
+    var member = await message.guild.members.cache.get(user.id);
     if (hofData[0].length > 0 && reaction.emoji.id == hofData[0][0].emoji_id && (reaction.count >= hofData[0][0].threshold || (hofData[0][0].admin_override == true && member.permissions.has(PermissionsBitField.Flags.Administrator)))) {
-        var is_hof = await connection.promise().query('select * from hof_msg where message_id = ?', reaction.message.id);
+        var is_hof = await connection.promise().query('select * from hof_msg where message_id = ?', message.id);
         if (is_hof[0].length <= 0) {
             //create pin (message embed / rich formatting)
             const embeddedMessage = new EmbedBuilder()
                 .setColor(0xFFD700)
-                .setAuthor({ name: reaction.message.member.displayName });
-            if (reaction.message.content.length > 0) {
-                embeddedMessage.setDescription(reaction.message.content);
+                .setAuthor({ name: message.member.displayName });
+            if (message.content.length > 0) {
+                embeddedMessage.setDescription(message.content);
             }
-            if (reaction.message.embeds.first() && reaction.message.embeds.first().image) {
-                embeddedMessage.setImage(reaction.message.attachments.first().image.url);
+            if (message.embeds.first() && message.embeds.first().image) {
+                embeddedMessage.setImage(message.attachments.first().image.url);
             }
-            if (reaction.message.attachments.first() && reaction.message.attachments.first().contentType == 'image') {
-                embeddedMessage.setImage(reaction.message.attachments.first().url);
+            if (message.attachments.first() && message.attachments.first().contentType == 'image') {
+                embeddedMessage.setImage(message.attachments.first().url);
             }
-            embeddedMessage.setFields({ name: 'Source', value: '[click!](' + reaction.message.url + ')' })
+            embeddedMessage.setFields({ name: 'Source', value: '[click!](' + message.url + ')' })
                 .setTimestamp();
             var channel = await client.channels.cache.get(hofData[0][0].channel);
-            await channel.send({ embeds: [embeddedMessage], content: reaction.message.channel.toString() });
-            await connection.promise().query('insert into hof_msg (message_id) values (?)', reaction.message.id);
+            await channel.send({ embeds: [embeddedMessage], content: message.channel.toString() });
+            await connection.promise().query('insert into hof_msg (message_id) values (?)', message.id);
         }
 
 
