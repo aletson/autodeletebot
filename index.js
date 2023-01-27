@@ -231,7 +231,7 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (message.embeds && message.embeds[0] !== undefined && message.embeds[0].image) {
                 embeddedMessage.setImage(message.embeds[0].image.url);
             }
-            if (message.attachments && message.attachments.first() !== undefined && message.attachments.first().contentType == 'image') {
+            if (message.attachments && message.attachments.first() !== undefined && message.attachments.first().contentType.startsWith('image')) {
                 console.log('has attachment');
                 embeddedMessage.setImage(message.attachments.first().url);
             }
