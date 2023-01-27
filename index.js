@@ -227,14 +227,13 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (message.content.length > 0) {
                 embeddedMessage.setDescription(message.content);
             }
+            console.log(message);
             if (message.embeds && message.embeds.first() !== undefined && message.embeds.first().image) {
                 embeddedMessage.setImage(message.attachments.first().image.url);
             }
             if (message.attachments && message.attachments.first() !== undefined && message.attachments.first().contentType == 'image') {
                 console.log('has attachment');
                 embeddedMessage.setImage(message.attachments.first().url);
-            } else {
-                console.log(message);
             }
             embeddedMessage.setFields({ name: 'Source', value: '[click!](' + message.url + ')' })
                 .setTimestamp();
