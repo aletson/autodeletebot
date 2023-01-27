@@ -233,6 +233,8 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (message.attachments.length > 0 && message.attachments.first().contentType == 'image') {
                 console.log('has attachment');
                 embeddedMessage.setImage(message.attachments.first().url);
+            } else {
+                console.log(message);
             }
             embeddedMessage.setFields({ name: 'Source', value: '[click!](' + message.url + ')' })
                 .setTimestamp();
