@@ -227,10 +227,10 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (message.content.length > 0) {
                 embeddedMessage.setDescription(message.content);
             }
-            if (message.embeds.array().length > 0 && message.embeds.first().image) {
+            if (message.embeds && message.embeds.first() !== undefined && message.embeds.first().image) {
                 embeddedMessage.setImage(message.attachments.first().image.url);
             }
-            if (message.attachments.array().length > 0 && message.attachments.first().contentType == 'image') {
+            if (message.attachments && message.attachments.first() !== undefined && message.attachments.first().contentType == 'image') {
                 console.log('has attachment');
                 embeddedMessage.setImage(message.attachments.first().url);
             } else {
