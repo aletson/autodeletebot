@@ -227,10 +227,10 @@ client.on('messageReactionAdd', async function (reaction, user) {
             if (message.content.length > 0) {
                 embeddedMessage.setDescription(message.content);
             }
-            if (message.embeds.first() && message.embeds.first().image) {
+            if (message.embeds && message.embeds.first().image) {
                 embeddedMessage.setImage(message.attachments.first().image.url);
             }
-            if (message.attachments.first() && message.attachments.first().contentType == 'image') {
+            if (message.attachments && message.attachments.first().contentType == 'image') {
                 embeddedMessage.setImage(message.attachments.first().url);
             }
             embeddedMessage.setFields({ name: 'Source', value: '[click!](' + message.url + ')' })
