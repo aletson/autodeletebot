@@ -45,25 +45,25 @@ client.on('ready', async () => {
         "description": "set up hall of fame functionality",
         "options": [
             {
-                "type": 3,
+                "type": 3, // String
                 "name": "emoji_id",
-                "description": "Right click on the emoji you want and click \"Copy ID\".",
+                "description": "The numeric ID of the emoji.",
                 "required": true
             },
             {
-                "type": 7,
+                "type": 7, // Channel
                 "name": "channel",
                 "description": "The channel to set as the Hall of Fame",
                 "required": true
             },
             {
-                "type": 4,
+                "type": 4, // Integer
                 "name": "threshold",
                 "description": "How many people must react",
                 "required": true
             },
             {
-                "type": 5,
+                "type": 5, // Boolean
                 "name": "admin_override",
                 "description": "If a react from an admin automatically HOF's regardless of threshold",
                 "required": true
@@ -186,6 +186,7 @@ setInterval(async function () {
     var channels = await connection.promise().query('select * from channels where enabled = 1');
     if (channels[0].length > 0) {
         for (const channel of channels[0]) {
+            console.log(channel);
             let channelObj = await client.channels.cache.get(channel.id);
             let message = await channelObj.messages.fetch({ limit: 1 });
             if (message) {
