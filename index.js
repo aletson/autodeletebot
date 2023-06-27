@@ -188,7 +188,7 @@ setInterval(async function () {
         for (const channel of channels[0]) {
             console.log(channel);
             let channelObj = await client.channels.cache.get(channel.id);
-            if (channel) {
+            if (channelObj) {
                 let message = await channelObj.messages.fetch({ limit: 1 });
                 if (message) {
                     var messages = await channelObj.messages.fetch({ limit: 100, before: message.id });
