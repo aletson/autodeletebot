@@ -186,7 +186,6 @@ setInterval(async function () {
     var channels = await connection.promise().query('select * from channels where enabled = 1');
     if (channels[0].length > 0) {
         for (const channel of channels[0]) {
-            console.log(channel);
             let channelObj = await client.channels.cache.get(channel.id);
             if (channelObj) {
                 let message = await channelObj.messages.fetch({ limit: 1 });
