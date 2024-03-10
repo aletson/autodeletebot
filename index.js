@@ -37,6 +37,7 @@ client.on('ready', async () => {
                 "type": 4,
                 "name": "minutes",
                 "description": "How many minutes should pass before message removed",
+                "required": true
             }
         ]
     },
@@ -96,6 +97,7 @@ client.on('guildCreate', async (guild) => {
                 "type": 4,
                 "name": "minutes",
                 "description": "How many minutes should pass before message removed",
+                "required": true
             }
         ]
     },
