@@ -201,7 +201,7 @@ setInterval(async function () {
                         let thisDeleteBatch = messages.map(message => messageDelete(message, channel, channelObj));
                         await Promise.all(thisDeleteBatch);
                         messages = newMessages;
-                        if (messages.size > 0) {
+                        if (messages.size == 0) {
                             message = null;
                         }
                     } else {
