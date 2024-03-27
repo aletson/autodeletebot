@@ -181,7 +181,11 @@ client.on('interactionCreate', async (interaction) => {
 
 function messageDelete(message, channel, channelObj) {
     if (message.createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000)) && message.pinned == false) { // milliseconds elapsed
-        channelObj.messages.delete(message.id);
+        try {
+            channelObj.messages.delete(message.id);
+        } catch (e) {
+            console.log(`Couldn't delete message ${message.id}. May be not found anymore.`);
+        }
     }
 }
 setInterval(async function () {
