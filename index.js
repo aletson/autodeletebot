@@ -184,7 +184,7 @@ function messageDelete(message, channel, channelObj) {
         try {
             channelObj.messages.delete(message.id);
         } catch (e) {
-            console.log(`Couldn't delete message ${message.id}. May be not found anymore.`);
+            console.error(`Couldn't delete message ${message.id}. May be not found anymore.`);
         }
     }
 }
@@ -194,6 +194,7 @@ setInterval(async function () {
         for (const channel of channels[0]) {
             let channelObj = await client.channels.cache.get(channel.id);
             if (channelObj) {
+                try {
                 let message = await channelObj.messages.fetch({ limit: 1 });
                 if (message) {
                     var messages = await channelObj.messages.fetch({ limit: 100, before: message.id });
@@ -212,6 +213,9 @@ setInterval(async function () {
                         message = null;
                     }
                 }
+            } catch (e) {
+                console.error(`Channel permissions missing on ${channel.id}.`);
+            }
             }
         }
     }
