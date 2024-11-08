@@ -194,33 +194,37 @@ setInterval(async function () {
         for (const channel of channels[0]) {
             let channelObj = await client.channels.cache.get(channel.id);
             if (channelObj) {
-                if (channel.guild.me?.permissionsIn(channel).has(PermissionsBitField.Flags.ManageMessages)) {
-                    try {
-                        let message = await channelObj.messages.fetch({ limit: 1 });
-                        if (message) {
-                            var messages = await channelObj.messages.fetch({ limit: 100, before: message.id });
-                        }
-                        while (message) {
-                            if (messages.size > 0) {
-                                message = messages.at(message.size - 1);
-                                let newMessages = await channelObj.messages.fetch({ limit: 100, before: message.id });
-                                let thisDeleteBatch = messages.map(message => messageDelete(message, channel, channelObj));
-                                await Promise.all(thisDeleteBatch);
-                                messages = newMessages;
-                                if (messages.size == 0) {
+                if (channel.guild.members.me) {
+                    if (channel.guild.members.me.permissionsIn(channel).has(PermissionsBitField.Flags.ManageMessages)) {
+                        try {
+                            let message = await channelObj.messages.fetch({ limit: 1 });
+                            if (message) {
+                                var messages = await channelObj.messages.fetch({ limit: 100, before: message.id });
+                            }
+                            while (message) {
+                                if (messages.size > 0) {
+                                    message = messages.at(message.size - 1);
+                                    let newMessages = await channelObj.messages.fetch({ limit: 100, before: message.id });
+                                    let thisDeleteBatch = messages.map(message => messageDelete(message, channel, channelObj));
+                                    await Promise.all(thisDeleteBatch);
+                                    messages = newMessages;
+                                    if (messages.size == 0) {
+                                        message = null;
+                                    }
+                                } else {
                                     message = null;
                                 }
-                            } else {
-                                message = null;
                             }
+                        } catch (e) {
+                            console.error(`Couldn't manage messages in ${channel.id} but permissions were there.`);
                         }
-                    } catch (e) {
-                        console.error(`Couldn't manage messages in ${channel.id} but permissions were there.`);
+                    } else {
+                        if (channel.guild.members.me.permissionsIn(channel.has(PermissionsBitField.Flags.SendMessages))) {
+                            channel.send('I\'ve been configured to delete messages in this channel, but I\'m missing permissions. Can you double check that I have Manage Messages permissions in this channel.');
+                        }
                     }
                 } else {
-                    if (channel.guild.me?.permissionsIn(channel.has(PermissionsBitField.Flags.SendMessages))) {
-                        channel.send('I\'ve been configured to delete messages in this channel, but I\'m missing permissions. Can you double check that I have Manage Messages permissions in this channel.');
-                    }
+                    // remove channel from db
                 }
             }
         }
