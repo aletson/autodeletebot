@@ -183,7 +183,7 @@ function messageDelete(message, channel, channelObj) {
     if (message.createdTimestamp < (Date.now() - (channel.minutes * 60 * 1000)) && message.pinned == false) { // milliseconds elapsed
         let id = message.id;
         try {
-            channelObj.messages.delete(message.id);
+            if (message.deletable) channelObj.messages.delete(message.id).catch(() => null);
         } catch (e) {
             console.error(`Couldn't delete message ${id}. May be not found anymore.`);
         }
