@@ -194,8 +194,8 @@ setInterval(async function () {
         for (const channel of channels[0]) {
             let channelObj = await client.channels.cache.get(channel.id);
             if (channelObj) {
-                if (channel.guild.members.me) {
-                    if (channel.guild.members.me.permissionsIn(channel).has(PermissionsBitField.Flags.ManageMessages)) {
+                if (channelObj.guild.members.me) {
+                    if (channelObj.guild.members.me.permissionsIn(channelObj).has(PermissionsBitField.Flags.ManageMessages)) {
                         try {
                             let message = await channelObj.messages.fetch({ limit: 1 });
                             if (message) {
@@ -219,7 +219,7 @@ setInterval(async function () {
                             console.error(`Couldn't manage messages in ${channel.id} but permissions were there.`);
                         }
                     } else {
-                        if (channel.guild.members.me.permissionsIn(channel.has(PermissionsBitField.Flags.SendMessages))) {
+                        if (channelObj.guild.members.me.permissionsIn(channelObj.has(PermissionsBitField.Flags.SendMessages))) {
                             channel.send('I\'ve been configured to delete messages in this channel, but I\'m missing permissions. Can you double check that I have Manage Messages permissions in this channel.');
                         }
                     }
