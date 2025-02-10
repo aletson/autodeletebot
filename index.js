@@ -218,6 +218,7 @@ setInterval(async function () {
                             }
                         } catch (e) {
                             console.error(`Couldn't manage messages in ${channel.id} but permissions were there.`);
+                            console.error(e);
                         }
                     } else {
                         if (channelObj.guild.members.me.permissionsIn(channelObj.has(PermissionsBitField.Flags.SendMessages))) {
