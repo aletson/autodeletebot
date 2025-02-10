@@ -224,7 +224,7 @@ setInterval(async function () {
                             // channelObj.send('I\'ve been configured to delete messages in this channel, but I\'m missing permissions. Can you double check that I have Manage Messages permissions in this channel.');
                         }
                         console.error(`Couldn't manage messages in ${channel.id}: missing permissions.`);
-                        console.error(`Permissions: ${channelObj.guild.members.me.permissionsIn(channelObj)}`);
+                        console.error(`Permissions: ${JSON.stringify(channelObj.guild.members.me.permissionsIn(channelObj), null, 2)}`);
                     }
                 } else {
                     // remove channel from db
