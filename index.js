@@ -196,7 +196,7 @@ setInterval(async function () {
             let channelObj = await client.channels.cache.get(channel.id);
             if (channelObj) {
                 if (channelObj.guild.members.me) {
-                    if (channelObj.guild.members.me.permissionsIn(channelObj).has(PermissionsBitField.Flags.ManageMessages)) {
+                    if (channelObj.guild.members.me.permissionsIn(channelObj).has(PermissionsBitField.Flags.ManageMessages) && channelObj.guild.members.me.permissionsIn(channelObj).has(PermissionsBitField.Flags.ViewChannel) && channelObj.guild.members.me.permissionsIn(channelObj).has(PermissionsBitField.Flags.ReadMessageHistory)) {
                         try {
                             let message = await channelObj.messages.fetch({ limit: 1 });
                             if (message) {
@@ -218,12 +218,13 @@ setInterval(async function () {
                             }
                         } catch (e) {
                             console.error(`Couldn't manage messages in ${channel.id} but permissions were there.`);
-                            console.error(e);
                         }
                     } else {
                         if (channelObj.guild.members.me.permissionsIn(channelObj.has(PermissionsBitField.Flags.SendMessages))) {
                             channel.send('I\'ve been configured to delete messages in this channel, but I\'m missing permissions. Can you double check that I have Manage Messages permissions in this channel.');
                         }
+                        console.error(`Couldn't manage messages in ${channel.id}: missing permissions.`);
+                        console.error(`Permissions: ${channelObj.guild.members.me.permissionsIn(channelObj)}`);
                     }
                 } else {
                     // remove channel from db
